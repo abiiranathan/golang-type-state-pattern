@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"phantom-types/bank"
+	"typestate/bank"
 )
 
 func main() {
-	fmt.Println("=== True Phantom Types in Go ===")
-
 	// Create accounts in different states
 	activeAcc := &bank.ActiveAccount{ID: "ACT-123", Balance: 100.0}
 	closedAcc := &bank.ClosedAccount{ID: "CLS-456", Balance: 200.0}
@@ -17,10 +15,6 @@ func main() {
 	fmt.Printf("  Active: $%.2f\n", activeAcc.GetBalance())
 	fmt.Printf("  Closed: $%.2f\n", closedAcc.GetBalance())
 	fmt.Printf("  Pending: $%.2f\n", pendingAcc.GetBalance())
-
-	// Withdraw and Close active account (composite operation)
-	nowClosedAcct := bank.WithdrawAndClose(activeAcc, 30.0)
-	fmt.Printf("After withdrawing $30 and closing active account: $%.2f\n", nowClosedAcct.GetBalance())
 
 	// Invalid operations (uncommenting these lines will cause compile-time errors)
 	// bank.Withdraw(closedAcc, 50.0) // Cannot withdraw from closed account
@@ -44,4 +38,9 @@ func main() {
 
 	newClosedAcc := bank.Close(activeAcc)
 	fmt.Printf("  Closed active account: $%.2f\n", newClosedAcc.GetBalance())
+
+	// Withdraw and Close active account (composition of interfaces)
+	nowClosedAcct := bank.WithdrawAndClose(activeAcc, 30.0)
+	fmt.Printf("After withdrawing $30 and closing active account: $%.2f\n", nowClosedAcct.GetBalance())
+
 }
