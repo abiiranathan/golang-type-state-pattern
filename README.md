@@ -1,9 +1,3 @@
-This is an excellent and comprehensive explanation of the type-state pattern implementation. You've clearly articulated the philosophy, design choices, and technical details. The emphasis on **compile-time guarantees through unexported methods and anchored interfaces** is precisely correct for achieving robust capability-based security in Go.
-
-Let's distill this into a more concise, actionable README suitable for the repository, keeping all the critical insights.
-
----
-
 # `bank` Package: Type-State Pattern with Compile-Time Guarantees
 
 This package implements a bank account using the **type-state pattern** (also known as the behavior pattern). Account state (`active`, `pending`, `closed`) is encoded as a compile-time type parameter on the `Account` struct. The public API consists of top-level functions (e.g., `Deposit`, `Withdraw`) that are only available for accounts in the correct state, enforced by the Go compiler.
